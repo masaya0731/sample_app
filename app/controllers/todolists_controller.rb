@@ -1,4 +1,5 @@
 class TodolistsController < ApplicationController
+  protect_from_forgery :except => [:destroy]
   def new
     @list = List.new
   end
@@ -29,6 +30,13 @@ class TodolistsController < ApplicationController
     list = List.find(params[:id])
     list.update(list_params)
     redirect_to todolist_path(list.id)
+  end
+
+  def destroy
+   list = List.find(params[:id])
+   list.destroy
+   redirect_to todolists_path
+
   end
 
   private
